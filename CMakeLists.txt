@@ -22,3 +22,15 @@ add_executable(lab_4_combinated
         lab_4_combinated/Order.cpp
         lab_4_combinated/Order.h
 )
+
+add_executable(lab_5_combinated
+        lab_5_combinated/main.cpp
+        lab_5_combinated/Entity.cpp
+        lab_5_combinated/Product.cpp
+        lab_5_combinated/PhysicalProduct.cpp
+        lab_5_combinated/DigitalProduct.cpp
+        lab_5_combinated/Customer.cpp
+        lab_5_combinated/RegularCustomer.cpp
+        lab_5_combinated/PremiumCustomer.cpp
+        lab_5_combinated/Order.cpp
+)

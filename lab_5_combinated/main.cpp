@@ -10,34 +10,26 @@
 #include "PremiumCustomer.h"
 #include "Order.h"
 
-// ╔══════════════════════════════════════════════════╗
-// ║  Пункт 1: Проблема статичної прив'язки           ║
-// ╚══════════════════════════════════════════════════╝
+
 void staticBindingProblem(Product& p) {
     // Без virtual — завжди викликається Product::display()
     // навіть якщо передати PhysicalProduct чи DigitalProduct
     p.display();
 }
 
-// ╔══════════════════════════════════════════════════╗
-// ║  Пункт 3: Динамічний поліморфізм — вказівник     ║
-// ╚══════════════════════════════════════════════════╝
+
 void showEntityPointer(Entity* e) {
     e->display();   // викликається правильний display() завдяки virtual
     std::cout << "Value: $" << e->getValue() << "\n";
 }
 
-// ╔══════════════════════════════════════════════════╗
-// ║  Пункт 6: Динамічний поліморфізм — посилання     ║
-// ╚══════════════════════════════════════════════════╝
+
 void showEntityReference(const Entity& e) {
     e.display();    // теж динамічна прив'язка через посилання
     std::cout << "Info: " << e.getInfo() << "\n";
 }
 
-// ╔══════════════════════════════════════════════════╗
-// ║  Пункт 8: Інтерфейс IDisplayable                 ║
-// ╚══════════════════════════════════════════════════╝
+
 void printDisplayable(const IDisplayable& obj) {
     obj.display();
     std::cout << "Info: " << obj.getInfo() << "\n";
@@ -52,9 +44,7 @@ int main() {
     RegularCustomer alice(1, "Alice", "alice@mail.com", 500.0);
     PremiumCustomer bob(2, "Bob", "bob@mail.com", 1000.0);
 
-    // ╔══════════════════════════════════════════════════╗
-    // ║  Пункт 1: Static binding — проблема             ║
-    // ╚══════════════════════════════════════════════════╝
+
     std::cout << "\n--- 1. Static Binding (проблема) ---\n";
     std::cout << "Передаємо PhysicalProduct як Product&:\n";
     staticBindingProblem(laptop);
@@ -68,9 +58,7 @@ int main() {
     // Демонструємо через вивід без virtual:
     std::cout << "Product::getInfo() через Product*: " << ptr->getInfo() << "\n";
 
-    // ╔══════════════════════════════════════════════════╗
-    // ║  Пункти 2, 3: Virtual + Base class pointer      ║
-    // ╚══════════════════════════════════════════════════╝
+
     std::cout << "\n--- 2 & 3. Virtual functions + Base pointer ---\n";
     std::vector<Entity*> entities;
     entities.push_back(new PhysicalProduct(3, "Monitor", 299.99, 5, 3.5, "50x30x10cm"));
@@ -84,17 +72,13 @@ int main() {
         std::cout << "---\n";
     }
 
-    // ╔══════════════════════════════════════════════════╗
-    // ║  Пункт 4: Virtual destructor                    ║
-    // ╚══════════════════════════════════════════════════╝
+
     std::cout << "\n--- 4. Virtual destructor ---\n";
     std::cout << "Видаляємо через Entity* — правильна послідовність деструкторів:\n";
     Entity* tempEntity = new PhysicalProduct(5, "Temp", 9.99, 1, 0.1, "5x5x5cm");
     delete tempEntity; // завдяки virtual destructor викликається PhysicalProduct::~PhysicalProduct()
 
-    // ╔══════════════════════════════════════════════════╗
-    // ║  Пункт 5: final                                 ║
-    // ╚══════════════════════════════════════════════════╝
+
     std::cout << "\n--- 5. final ---\n";
     std::cout << "PhysicalProduct i PremiumCustomer — final класи\n";
     std::cout << "Від них не можна наслідуватись (перевіряється компілятором)\n";
@@ -102,27 +86,20 @@ int main() {
     premium.addBonusPoints(200);
     premium.display();
 
-    // ╔══════════════════════════════════════════════════╗
-    // ║  Пункт 6: Base class reference                  ║
-    // ╚══════════════════════════════════════════════════╝
+
     std::cout << "\n--- 6. Base class reference ---\n";
     std::cout << "Entity& посилання — теж динамічна прив'язка:\n";
     showEntityReference(laptop);
     showEntityReference(alice);
     showEntityReference(bob);
 
-    // ╔══════════════════════════════════════════════════╗
-    // ║  Пункт 7: Pure virtual function                 ║
-    // ╚══════════════════════════════════════════════════╝
     std::cout << "\n--- 7. Pure virtual function (getValue) ---\n";
     std::cout << "Entity::getValue() = 0 — кожен клас реалізує по своєму:\n";
     for (Entity* e : entities) {
         std::cout << e->getInfo() << " → getValue(): $" << e->getValue() << "\n";
     }
 
-    // ╔══════════════════════════════════════════════════╗
-    // ║  Пункт 8: Інтерфейс IDisplayable               ║
-    // ╚══════════════════════════════════════════════════╝
+
     std::cout << "\n--- 8. Interface IDisplayable ---\n";
     std::cout << "Абсолютно різні класи через один інтерфейс:\n";
     printDisplayable(laptop);   // PhysicalProduct
