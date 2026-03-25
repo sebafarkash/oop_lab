@@ -8,6 +8,7 @@ add_executable(Lab_2_3_combinated
         Lab_2_3_combinated/Product.cpp
         Lab_2_3_combinated/Customer.cpp
         Lab_2_3_combinated/Order.cpp
+        lab_6_combinated/Exceptions.h
 )
 
 add_executable(lab_4_combinated
@@ -33,4 +34,13 @@ add_executable(lab_5_combinated
         lab_5_combinated/RegularCustomer.cpp
         lab_5_combinated/PremiumCustomer.cpp
         lab_5_combinated/Order.cpp
+)
+
+add_executable(lab_6_combinated
+        lab_6_combinated/main.cpp
+        lab_6_combinated/Product.cpp
+        lab_6_combinated/Order.cpp
+        lab_6_combinated/FileManager.cpp
+        lab_6_combinated/Store.cpp
+        lab_6_combinated/Menu.cpp
 )
